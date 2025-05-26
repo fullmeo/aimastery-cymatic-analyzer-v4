@@ -1,6 +1,6 @@
 # 🎵 AIMastery Cymatic Analyzer V4
 
-[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](https://github.com/fullmeo/aimastery-v4)
+[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](https://github.com/fullmeo/aimastery-cymatic-analyzer-v4)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 [![Vercel](https://img.shields.io/badge/deployment-vercel-black.svg)](https://vercel.com)
@@ -39,8 +39,8 @@ Clés API OpenAI et Stripe
 ### Installation
 ```bash
 # Clone le repository
-git clone https://github.com/fullmeo/aimastery-v4.git
-cd aimastery-v4
+git clone https://github.com/fullmeo/aimastery-cymatic-analyzer-v4.git
+cd aimastery-cymatic-analyzer-v4
 
 # Installation des dépendances
 npm install
@@ -329,4 +329,5 @@ MIT License - voir [LICENSE](LICENSE) pour plus de détails.
 
 *Made with ❤️ for Creative Technologists by Serigne Diagne*
 
-</div>[aimastery_cymatic_analyzer_v4.readme.md](https://github.com/user-attachments/files/20443147/aimastery_cymatic_analyzer_v4.readme.md)
+</div>
+[aimastery_cymatic_v4readme.md](https://github.com/user-attachments/files/20443331/aimastery_cymatic_v4readme.md)
