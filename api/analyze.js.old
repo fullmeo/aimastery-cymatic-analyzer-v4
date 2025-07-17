@@ -48,56 +48,83 @@ function performCymaticAnalysis(audioData) {
     cymaticPattern: getCymaticPattern(baseFreq),
     complexity: baseFreq > 440 ? 'high' : 'medium',
     timestamp: new Date().toISOString()
+  };
+}
 
 function extractBaseFrequency(audioData) {
+  // Analyse plus réaliste basée sur les données audio
   if (!audioData || audioData === 'test') return 440;
+  
+  // Simulation d'analyse spectrale
   const hash = audioData.split('').reduce((a, b) => {
     a = ((a << 5) - a) + b.charCodeAt(0);
     return a & a;
   }, 0);
-  return 200 + Math.abs(hash % 600);
+  
+  return 200 + Math.abs(hash % 600); // 200-800 Hz range
 }
 
 function generateRealisticHarmonics(fundamental) {
   return [
-    { frequency: fundamental * 2, amplitude: 0.6 },
-    { frequency: fundamental * 3, amplitude: 0.4 },
-    { frequency: fundamental * 4, amplitude: 0.3 }
+    { frequency: fundamental * 2, amplitude: 0.6, phase: 0 },
+    { frequency: fundamental * 3, amplitude: 0.4, phase: Math.PI/3 },
+    { frequency: fundamental * 4, amplitude: 0.3, phase: Math.PI/2 },
+    { frequency: fundamental * 5, amplitude: 0.2, phase: Math.PI },
+    { frequency: fundamental * 6, amplitude: 0.15, phase: 4*Math.PI/3 }
   ];
 }
 
 function calculateVincianScore(freq, harmonics) {
-  let score = 50;
   const goldenRatio = 1.618;
+  let score = 50; // Base score
+  
+  // Bonus pour golden ratio
   harmonics.forEach(h => {
-    if (Math.abs(h.frequency / freq - goldenRatio) < 0.1) score += 15;
+    const ratio = h.frequency / freq;
+    if (Math.abs(ratio - goldenRatio) < 0.1) score += 15;
+    if (Math.abs(ratio - (goldenRatio * 2)) < 0.1) score += 10;
   });
+  
+  // Bonus fréquences "sacrées"
+  const sacredFreqs = [432, 528, 741, 852];
+  if (sacredFreqs.some(f => Math.abs(freq - f) < 10)) score += 20;
+  
   return Math.min(100, Math.max(30, score));
 }
 
 function calculateResonance(freq) {
-  return (freq / 440).toFixed(3);
+  return (freq / 440).toFixed(3); // Ratio par rapport à A4
 }
 
 function getCymaticPattern(freq) {
+  if (freq < 300) return { type: 'simple_wave', complexity: 'low' };
   if (freq < 500) return { type: 'standing_wave', complexity: 'medium' };
-  return { type: 'complex_spiral', complexity: 'high' };
+  if (freq < 700) return { type: 'complex_spiral', complexity: 'high' };
+  return { type: 'fractal_pattern', complexity: 'ultra' };
+}  }
+};
+
+function performCymaticAnalysis(audioData) {
+  // À améliorer avec ton algo réel
+  const freq = 440 + Math.random() * 400;
+  return {
+    fundamentalFrequency: freq,
+    vincianScore: Math.floor(60 + Math.random() * 40),
+    musicalNote: frequencyToNote(freq),
+    timestamp: new Date().toISOString()
+  };
 }
-  let score = 50;
-  const goldenRatio = 1.618;
-  harmonics.forEach(h => {
-    if (Math.abs(h.frequency / freq - goldenRatio) < 0.1) score += 15;
+
+async function generateSocialMediaPack(analysis, tier) {
+  const prompt = `Crée du contenu viral pour un score Vincien de ${analysis.vincianScore}/100 et fréquence ${analysis.fundamentalFrequency}Hz. Format: Instagram story + post + hashtags`;
+  
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
+    max_tokens: 500
   });
-  return Math.min(100, Math.max(30, score));
-}
 
-function calculateResonance(freq) {
-  return (freq / 440).toFixed(3);
-}
-
-function getCymaticPattern(freq) {
-  if (freq < 500) return { type: 'standing_wave', complexity: 'medium' };
-  return { type: 'complex_spiral', complexity: 'high' };
+  return { instagram: { content: completion.choices[0].message.content } };
 }
 
 function frequencyToNote(freq) {
@@ -107,12 +134,4 @@ function frequencyToNote(freq) {
   const h = Math.round(12 * Math.log2(freq / C0));
   const octave = Math.floor(h / 12);
   return notes[h % 12] + octave;
-}
-
-async function generateSocialContent(analysis, tier) {
-  return { 
-    instagram: { 
-      content: `🎵 Score Vincien: ${analysis.vincianScore}/100 | Note: ${analysis.musicalNote} | ${analysis.fundamentalFrequency}Hz` 
-    }
-  };
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+fetch("/api/analyze", {
+  method: "POST", 
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({audioData: "test", userId: "mobile"})
+})
+.then(r => r.json())
+.then(data => console.log(data));
+</script>
+<h1>Test API</h1>
+</body>
+</html>
