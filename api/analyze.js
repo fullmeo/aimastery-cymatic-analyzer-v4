@@ -48,6 +48,8 @@ function performCymaticAnalysis(audioData) {
     cymaticPattern: getCymaticPattern(baseFreq),
     complexity: baseFreq > 440 ? 'high' : 'medium',
     timestamp: new Date().toISOString()
+};
+}
 
 function extractBaseFrequency(audioData) {
   if (!audioData || audioData === 'test') return 440;
