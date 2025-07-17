@@ -1,0 +1,28 @@
+{
+  "name": "aimastery-cymatic-analyzer-v4",
+  "version": "4.0.0",
+  "description": "Analyse cymatique révolutionnaire powered by AI",
+  "main": "api/analyze.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "build": "echo 'Serverless - no build needed'"
+  },
+  "dependencies": {
+    "openai": "^4.0.0",
+    "stripe": "^13.0.0",
+    "vercel": "^44.4.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ai",
+    "cymatic",
+    "audio",
+    "analysis"
+  ],
+  "author": "Serigne Diagne <serignetrumpet@gmail.com>",
+  "license": "MIT"
+}
