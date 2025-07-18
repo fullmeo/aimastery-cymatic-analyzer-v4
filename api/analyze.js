@@ -118,3 +118,4 @@ async function generateSocialContent(analysis, tier) {
     }
   };
 }
+}
