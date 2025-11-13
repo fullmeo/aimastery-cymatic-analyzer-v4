@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIMastery Cymatic Analyzer V4 - Analyse Cymatique Révolutionnaire</title>
+  <meta name="description" content="Transformez vos compositions audio en contenus viraux pour les réseaux sociaux en 30 secondes grâce à l'analyse cymatique powered by AI.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 0;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+      transform: translateY(-2px);
+    }
+
+    /* Features Section */
+    .features {
+      background: white;
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--dark);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      border-radius: 12px;
+      background: var(--light);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    /* Demo Section */
+    .demo {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 4rem 0;
+      color: white;
+    }
+
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .demo-input {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .demo-results {
+      background: white;
+      color: var(--dark);
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .demo-results.active {
+      display: block;
+    }
+
+    .score-display {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 1rem 0;
+    }
+
+    /* Pricing Section */
+    .pricing {
+      background: white;
+      padding: 4rem 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .pricing-card {
+      background: var(--light);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .pricing-card.featured {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .pricing-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .price {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+
+    .price span {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-card.featured .pricing-features li {
+      border-bottom-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 1rem;
+      color: var(--secondary);
+    }
+
+    .footer-section a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .footer-section a:hover {
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.8;
+    }
+
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 1rem auto;
+      display: none;
+    }
+
+    .spinner.active {
+      display: block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">AIMastery Cymatic Analyzer</div>
+        <nav>
+          <a href="#features">Fonctionnalités</a>
+          <a href="#demo">Démo</a>
+          <a href="#pricing">Tarifs</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Analyse Cymatique Révolutionnaire</h1>
+      <p>Transformez vos compositions audio en contenus viraux pour les réseaux sociaux en 30 secondes</p>
+      <div class="cta-buttons">
+        <a href="#demo" class="btn btn-primary">Essayer Gratuitement</a>
+        <a href="#pricing" class="btn btn-secondary">Voir les Tarifs</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Fonctionnalités</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><¨</div>
+          <h3>Analyse Vincienne</h3>
+          <p>Algorithmes inspirés de Léonard de Vinci pour une analyse harmonique unique basée sur le nombre d'or et les proportions sacrées.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">=Ê</div>
+          <h3>Score Cymatique</h3>
+          <p>Évaluation harmonique de 0 à 100 basée sur les fréquences sacrées (432Hz, 528Hz, 741Hz, 852Hz).</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">=ñ</div>
+          <h3>Social Media Pack</h3>
+          <p>Contenu optimisé automatiquement pour Instagram, LinkedIn, TikTok et YouTube avec hashtags personnalisés.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">></div>
+          <h3>Génération IA</h3>
+          <p>OpenAI GPT pour créer des descriptions captivantes et du contenu viral adapté à votre audience.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">¡</div>
+          <h3>Analyse en 30s</h3>
+          <p>Résultats ultra-rapides grâce à notre architecture serverless optimisée sur Vercel.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">=</div>
+          <h3>100% Sécurisé</h3>
+          <p>Vos données sont chiffrées et protégées. Conformité RGPD garantie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="demo">
+    <div class="container">
+      <h2 class="section-title">Essayez Maintenant</h2>
+      <div class="demo-container">
+        <h3>Test de l'Analyse Cymatique</h3>
+        <p>Cliquez sur le bouton pour tester notre analyseur avec un échantillon audio</p>
+        <button class="btn btn-primary" onclick="runDemo()" style="width: 100%; margin-top: 1rem;">
+          Analyser un Échantillon
+        </button>
+        <div class="spinner" id="spinner"></div>
+        <div class="demo-results" id="results">
+          <h3>Résultats de l'Analyse</h3>
+          <div class="score-display" id="score">--/100</div>
+          <div id="details"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <h2 class="section-title">Tarifs</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <div class="price">0<span>/mois</span></div>
+          <ul class="pricing-features">
+            <li>5 analyses/mois</li>
+            <li>Fonctionnalités de base</li>
+            <li>Watermark sur exports</li>
+            <li>Support communautaire</li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%;">Commencer</button>
+        </div>
+
+        <div class="pricing-card featured">
+          <h3>Social Pack</h3>
+          <div class="price">9<span>/mois</span></div>
+          <ul class="pricing-features">
+            <li>50 analyses/mois</li>
+            <li>HD templates</li>
+            <li>Analytics détaillés</li>
+            <li>Support prioritaire</li>
+            <li>Sans watermark</li>
+          </ul>
+          <button class="btn btn-primary" style="width: 100%; background: white; color: var(--primary);">
+            S'abonner
+          </button>
+        </div>
+
+        <div class="pricing-card">
+          <h3>Holographic</h3>
+          <div class="price">15<span>/mois</span></div>
+          <ul class="pricing-features">
+            <li>100 analyses/mois</li>
+            <li>Dashboard 3D</li>
+            <li>Export 4K</li>
+            <li>Compatibilité AR</li>
+            <li>API publique</li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%;">Bientôt</button>
+        </div>
+
+        <div class="pricing-card">
+          <h3>NFT Premium</h3>
+          <div class="price">25<span>/mois</span></div>
+          <ul class="pricing-features">
+            <li>Analyses illimitées</li>
+            <li>Génération NFT</li>
+            <li>Blockchain Solana</li>
+            <li>Marketplace intégré</li>
+            <li>Royalties automatiques</li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%;">Bientôt</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>AIMastery</h4>
+          <p>Analyse cymatique révolutionnaire powered by AI pour créateurs de contenu.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Produit</h4>
+          <a href="#features">Fonctionnalités</a>
+          <a href="#pricing">Tarifs</a>
+          <a href="#demo">Démo</a>
+          <a href="https://docs.scorescout.eu">Documentation</a>
+        </div>
+        <div class="footer-section">
+          <h4>Entreprise</h4>
+          <a href="https://scorescout.eu">À propos</a>
+          <a href="https://github.com/fullmeo/aimastery-cymatic-analyzer-v4">GitHub</a>
+          <a href="mailto:serignetrumpet@gmail.com">Contact</a>
+        </div>
+        <div class="footer-section">
+          <h4>Légal</h4>
+          <a href="#">Mentions légales</a>
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">CGU</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 AIMastery by Serigne Diagne. Made with d for Creative Technologists.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    async function runDemo() {
+      const spinner = document.getElementById('spinner');
+      const results = document.getElementById('results');
+      const scoreEl = document.getElementById('score');
+      const detailsEl = document.getElementById('details');
+
+      // Show loading
+      spinner.classList.add('active');
+      results.classList.remove('active');
+
+      try {
+        const response = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            audioData: 'demo_sample_' + Date.now(),
+            userId: 'demo_user',
+            tier: 'free'
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Display results
+          scoreEl.textContent = `${data.analysis.vincianScore}/100`;
+
+          detailsEl.innerHTML = `
+            <div style="margin-top: 2rem;">
+              <p><strong>Fréquence fondamentale:</strong> ${data.analysis.fundamentalFrequency} Hz</p>
+              <p><strong>Note musicale:</strong> ${data.analysis.musicalNote}</p>
+              <p><strong>Complexité:</strong> ${data.analysis.complexity}</p>
+              <p><strong>Pattern cymatique:</strong> ${data.analysis.cymaticPattern.type}</p>
+              <div style="margin-top: 1rem; padding: 1rem; background: var(--light); border-radius: 8px;">
+                <strong>Contenu Instagram:</strong><br>
+                ${data.content.instagram.story}<br>
+                <small>${data.content.instagram.hashtags.join(' ')}</small>
+              </div>
+            </div>
+          `;
+
+          results.classList.add('active');
+        }
+      } catch (error) {
+        detailsEl.innerHTML = `<p style="color: var(--danger);">Erreur: ${error.message}</p>`;
+        results.classList.add('active');
+      } finally {
+        spinner.classList.remove('active');
+      }
+    }
+  </script>
+</body>
+</html>

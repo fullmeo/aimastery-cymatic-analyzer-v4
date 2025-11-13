@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement Annulé - AIMastery Cymatic Analyzer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --warning: #f59e0b;
+      --dark: #1e293b;
+      --light: #f8fafc;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cancel-icon {
+      width: 100px;
+      height: 100px;
+      background: var(--warning);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      animation: scaleIn 0.5s ease-out 0.2s both;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .cancel-icon svg {
+      width: 60px;
+      height: 60px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    h1 {
+      color: var(--warning);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      color: var(--dark);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    .message {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .message p {
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .message p:last-child {
+      margin-bottom: 0;
+    }
+
+    .free-option {
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+
+    .free-option h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .free-features {
+      list-style: none;
+      text-align: left;
+      margin: 1rem 0;
+    }
+
+    .free-features li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .free-features li:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin: 0.5rem;
+    }
+
+    .btn:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-info {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      color: var(--dark);
+      opacity: 0.7;
+    }
+
+    .reasons {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .reasons h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .reasons ul {
+      list-style: none;
+    }
+
+    .reasons li {
+      padding: 0.75rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .reasons li:before {
+      content: "?";
+      position: absolute;
+      left: 0;
+      color: var(--warning);
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cancel-icon">
+      <svg viewBox="0 0 52 52">
+        <circle cx="26" cy="26" r="20" stroke="white" stroke-width="3" fill="none"/>
+        <line x1="16" y1="26" x2="36" y2="26" stroke="white" stroke-width="3"/>
+      </svg>
+    </div>
+
+    <h1>Paiement Annulé</h1>
+    <p class="subtitle">Aucun montant n'a été débité</p>
+
+    <div class="message">
+      <p>Votre processus de paiement a été annulé. Vous n'avez pas été facturé et aucune charge n'a été effectuée sur votre carte.</p>
+      <p>Si vous avez rencontré un problème ou si vous avez des questions concernant nos offres, n'hésitez pas à nous contacter. Nous sommes là pour vous aider!</p>
+    </div>
+
+    <div class="reasons">
+      <h3>Pourquoi avoir annulé?</h3>
+      <ul>
+        <li>Vous avez des questions sur les fonctionnalités?</li>
+        <li>Le prix ne correspond pas à vos attentes?</li>
+        <li>Vous voulez tester davantage avant de vous abonner?</li>
+        <li>Problème technique lors du paiement?</li>
+      </ul>
+      <p style="margin-top: 1rem;">Contactez-nous à <strong>serignetrumpet@gmail.com</strong> et nous trouverons une solution ensemble!</p>
+    </div>
+
+    <div class="free-option">
+      <h3>Continuez avec notre offre gratuite!</h3>
+      <p>Pas prêt à vous abonner? Pas de problème! Profitez de notre version gratuite:</p>
+      <ul class="free-features">
+        <li>5 analyses cymatiques par mois</li>
+        <li>Accès aux fonctionnalités de base</li>
+        <li>Score Vincien et analyse harmonique</li>
+        <li>Génération de contenu Instagram</li>
+      </ul>
+      <a href="/" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">Commencer Gratuitement</a>
+    </div>
+
+    <div style="margin-top: 2rem;">
+      <a href="/" class="btn">Retour à l'Accueil</a>
+      <a href="/#pricing" class="btn btn-secondary">Voir les Tarifs</a>
+    </div>
+
+    <div class="contact-info">
+      <p><strong>Besoin d'aide?</strong></p>
+      <p>Notre équipe support est disponible à <strong>serignetrumpet@gmail.com</strong></p>
+      <p>Nous répondons généralement sous 24h</p>
+    </div>
+  </div>
+
+  <script>
+    // Track cancellation
+    console.log('Payment cancelled at:', new Date().toISOString());
+
+    // In production, you might want to:
+    // - Track analytics event
+    // - Send feedback survey
+    // - Offer chat support
+    // - Show exit-intent popup with special offer
+
+    // Get referrer to understand where the user came from
+    const urlParams = new URLSearchParams(window.location.search);
+    const reason = urlParams.get('reason');
+
+    if (reason) {
+      console.log('Cancellation reason:', reason);
+    }
+  </script>
+</body>
+</html>

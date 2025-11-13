@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement Réussi - AIMastery Cymatic Analyzer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --success: #10b981;
+      --dark: #1e293b;
+      --light: #f8fafc;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .success-icon {
+      width: 100px;
+      height: 100px;
+      background: var(--success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      animation: scaleIn 0.5s ease-out 0.2s both;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .success-icon svg {
+      width: 60px;
+      height: 60px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .checkmark {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: drawCheck 0.5s ease-out 0.5s forwards;
+    }
+
+    @keyframes drawCheck {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    h1 {
+      color: var(--success);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      color: var(--dark);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    .details {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .details-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .details-row:last-child {
+      border-bottom: none;
+    }
+
+    .details-label {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .details-value {
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .next-steps {
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+
+    .next-steps h3 {
+      margin-bottom: 1rem;
+    }
+
+    .next-steps ul {
+      list-style: none;
+      text-align: left;
+    }
+
+    .next-steps li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .next-steps li:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin: 0.5rem;
+    }
+
+    .btn:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+    }
+
+    .contact-info {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      color: var(--dark);
+      opacity: 0.7;
+    }
+
+    .loading {
+      display: none;
+      margin: 2rem 0;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .spinner {
+      border: 3px solid var(--light);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="success-icon">
+      <svg viewBox="0 0 52 52">
+        <path class="checkmark" d="M14 27l7.8 7.8L38 18"/>
+      </svg>
+    </div>
+
+    <h1>Paiement Réussi!</h1>
+    <p class="subtitle">Bienvenue dans l'univers AIMastery</p>
+
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Récupération des détails de votre abonnement...</p>
+    </div>
+
+    <div id="content">
+      <div class="details">
+        <div class="details-row">
+          <span class="details-label">Statut</span>
+          <span class="details-value" id="status">Activé</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Abonnement</span>
+          <span class="details-value" id="plan">Social Pack</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Session ID</span>
+          <span class="details-value" id="sessionId">--</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Date d'activation</span>
+          <span class="details-value" id="date">--</span>
+        </div>
+      </div>
+
+      <div class="next-steps">
+        <h3>Prochaines Étapes</h3>
+        <ul>
+          <li>Vous allez recevoir un email de confirmation dans quelques minutes</li>
+          <li>Accédez à votre tableau de bord pour commencer vos analyses</li>
+          <li>Téléchargez l'extension VS Code pour une intégration complète</li>
+          <li>Consultez la documentation pour maximiser votre utilisation</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <a href="/" class="btn">Retour à l'Accueil</a>
+        <a href="https://docs.scorescout.eu" class="btn btn-secondary">Documentation</a>
+      </div>
+
+      <div class="contact-info">
+        <p>Des questions? Contactez-nous à <strong>serignetrumpet@gmail.com</strong></p>
+        <p>Support prioritaire disponible 24/7 pour les abonnés Premium</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get session ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+
+    if (sessionId) {
+      document.getElementById('sessionId').textContent = sessionId.substring(0, 24) + '...';
+
+      // Show loading and fetch session details
+      const loading = document.getElementById('loading');
+      const content = document.getElementById('content');
+
+      // Simulate fetching session details (in production, call Stripe API)
+      setTimeout(() => {
+        loading.classList.remove('active');
+        content.style.display = 'block';
+
+        // Set current date
+        const now = new Date();
+        document.getElementById('date').textContent = now.toLocaleDateString('fr-FR', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }, 1500);
+    } else {
+      // No session ID, show default success message
+      document.getElementById('date').textContent = new Date().toLocaleDateString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    // Track successful payment
+    console.log('Payment successful for session:', sessionId);
+
+    // In production, you might want to:
+    // - Track analytics event
+    // - Send conversion pixel
+    // - Update user's account status
+  </script>
+</body>
+</html>
