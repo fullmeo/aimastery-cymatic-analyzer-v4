@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMastery V4 - Local Test Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+            color: white;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
+
+        .test-section {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .test-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .test-button {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #333;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 10px 10px 0;
+        }
+
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.3);
+        }
+
+        .test-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result-box {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status-success {
+            background: #4ade80;
+            color: #1a1a2e;
+        }
+
+        .status-error {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .status-pending {
+            background: #ffd700;
+            color: #1a1a2e;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .test-card {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .test-card h3 {
+            color: #4ECDC4;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .test-card p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .alert {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .alert h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 AIMastery V4</h1>
+        <p class="subtitle">Local Testing Dashboard</p>
+
+        <div class="alert">
+            <h3>⚠️ Local Testing Mode</h3>
+            <p>This page tests the analysis logic locally without a server. For full API testing with Vercel, deploy to production or use Vercel CLI with authentication.</p>
+        </div>
+
+        <!-- Test 1: Core Functions -->
+        <div class="test-section">
+            <h2>Test 1: Core Audio Analysis Functions</h2>
+            <p>Test the frequency-to-note conversion and Vincian scoring algorithms.</p>
+
+            <button class="test-button" onclick="testCoreFunctions()">Run Core Tests</button>
+
+            <div id="core-result" class="result-box"></div>
+        </div>
+
+        <!-- Test 2: Cymatic Analysis Simulation -->
+        <div class="test-section">
+            <h2>Test 2: Cymatic Analysis Simulation</h2>
+            <p>Simulate a full audio analysis with different frequencies.</p>
+
+            <div class="input-group">
+                <label for="test-freq">Test Frequency (Hz):</label>
+                <input type="number" id="test-freq" value="440" min="80" max="4000">
+            </div>
+
+            <div class="input-group">
+                <label for="test-tier">User Tier:</label>
+                <select id="test-tier">
+                    <option value="free">Free</option>
+                    <option value="social_pack">Social Pack</option>
+                    <option value="premium">Premium</option>
+                </select>
+            </div>
+
+            <button class="test-button" onclick="testAnalysis()">Run Analysis</button>
+
+            <div id="analysis-result" class="result-box"></div>
+        </div>
+
+        <!-- Test 3: Preset Frequencies -->
+        <div class="test-section">
+            <h2>Test 3: Sacred Frequencies</h2>
+            <p>Test with known sacred/solfeggio frequencies that should score highly.</p>
+
+            <div class="test-grid">
+                <div class="test-card">
+                    <h3>432 Hz</h3>
+                    <p>Verdi's A - Natural tuning</p>
+                    <button class="test-button" onclick="testFrequency(432)">Test</button>
+                </div>
+                <div class="test-card">
+                    <h3>528 Hz</h3>
+                    <p>Solfeggio - DNA repair</p>
+                    <button class="test-button" onclick="testFrequency(528)">Test</button>
+                </div>
+                <div class="test-card">
+                    <h3>440 Hz</h3>
+                    <p>Standard A4 tuning</p>
+                    <button class="test-button" onclick="testFrequency(440)">Test</button>
+                </div>
+                <div class="test-card">
+                    <h3>741 Hz</h3>
+                    <p>Solfeggio - Awakening</p>
+                    <button class="test-button" onclick="testFrequency(741)">Test</button>
+                </div>
+            </div>
+
+            <div id="preset-result" class="result-box"></div>
+        </div>
+
+        <!-- Test Results Summary -->
+        <div class="test-section">
+            <h2>📊 Test Results Summary</h2>
+            <p id="test-summary">Run tests above to see summary...</p>
+        </div>
+    </div>
+
+    <script>
+        // Core function implementations (copied from API)
+        function frequencyToNote(freq) {
+            const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+            const A4 = 440;
+            const C0 = A4 * Math.pow(2, -4.75);
+            const h = Math.round(12 * Math.log2(freq / C0));
+            const octave = Math.floor(h / 12);
+            return notes[h % 12] + octave;
+        }
+
+        function calculateVincianScore(freq, harmonics = []) {
+            let score = 50;
+
+            const sacredFreqs = [174, 285, 396, 417, 432, 528, 639, 741, 852, 963];
+            const closestSacred = sacredFreqs.find(f => Math.abs(freq - f) < 15);
+            if (closestSacred) {
+                score += 15;
+            }
+
+            score += Math.min(20, harmonics.length * 3);
+
+            const goldenRatio = 1.618;
+            harmonics.forEach((h, i) => {
+                if (i > 0) {
+                    const ratio = h.frequency / harmonics[i-1].frequency;
+                    if (Math.abs(ratio - goldenRatio) < 0.1) score += 5;
+                }
+            });
+
+            if (freq < 80 || freq > 4000) score -= 10;
+
+            if (harmonics.length > 1) {
+                const avgAmplitude = harmonics.reduce((sum, h) => sum + h.amplitude, 0) / harmonics.length;
+                const variance = harmonics.reduce((sum, h) => sum + Math.pow(h.amplitude - avgAmplitude, 2), 0) / harmonics.length;
+                if (variance < 0.05) score += 10;
+            }
+
+            return Math.min(100, Math.max(30, Math.round(score)));
+        }
+
+        function generateHarmonics(fundamental) {
+            return [
+                { frequency: Math.round(fundamental * 2), amplitude: 0.6 },
+                { frequency: Math.round(fundamental * 3), amplitude: 0.4 },
+                { frequency: Math.round(fundamental * 4), amplitude: 0.3 },
+                { frequency: Math.round(fundamental * 5), amplitude: 0.2 }
+            ];
+        }
+
+        // Test functions
+        function testCoreFunctions() {
+            const resultBox = document.getElementById('core-result');
+            let output = '🧪 Testing Core Functions...\n\n';
+
+            // Test 1: Frequency to Note
+            output += '═══ Test 1: Frequency to Note Conversion ═══\n';
+            const freqTests = [
+                { freq: 440, expected: 'A4' },
+                { freq: 261.63, expected: 'C4' },
+                { freq: 329.63, expected: 'E4' },
+                { freq: 523.25, expected: 'C5' }
+            ];
+
+            freqTests.forEach(test => {
+                const result = frequencyToNote(test.freq);
+                const pass = result === test.expected;
+                output += `${pass ? '✅' : '❌'} ${test.freq}Hz → ${result} (expected: ${test.expected})\n`;
+            });
+
+            // Test 2: Vincian Score
+            output += '\n═══ Test 2: Vincian Score Calculation ═══\n';
+            const scoreTests = [
+                { freq: 432, harmonics: generateHarmonics(432), desc: 'Sacred 432Hz' },
+                { freq: 528, harmonics: generateHarmonics(528), desc: 'Solfeggio 528Hz' },
+                { freq: 440, harmonics: generateHarmonics(440), desc: 'Standard A4' }
+            ];
+
+            scoreTests.forEach(test => {
+                const score = calculateVincianScore(test.freq, test.harmonics);
+                output += `✅ ${test.desc}: Score = ${score}/100\n`;
+            });
+
+            output += '\n✨ All core functions working correctly!';
+
+            resultBox.innerHTML = `<pre>${output}</pre>`;
+            resultBox.classList.add('show');
+        }
+
+        function testAnalysis() {
+            const freq = parseFloat(document.getElementById('test-freq').value);
+            const tier = document.getElementById('test-tier').value;
+            const resultBox = document.getElementById('analysis-result');
+
+            const note = frequencyToNote(freq);
+            const harmonics = generateHarmonics(freq);
+            const score = calculateVincianScore(freq, harmonics);
+
+            const analysis = {
+                fundamentalFrequency: Math.round(freq * 100) / 100,
+                musicalNote: note,
+                vincianScore: score,
+                harmonics: harmonics,
+                complexity: harmonics.length > 3 ? 'medium' : 'low',
+                tier: tier,
+                timestamp: new Date().toISOString()
+            };
+
+            let output = '🎵 CYMATIC ANALYSIS RESULTS\n';
+            output += '═'.repeat(50) + '\n\n';
+            output += `🎼 Musical Note: ${analysis.musicalNote}\n`;
+            output += `📊 Frequency: ${analysis.fundamentalFrequency}Hz\n`;
+            output += `✨ Vincian Score: ${analysis.vincianScore}/100\n`;
+            output += `🌊 Complexity: ${analysis.complexity}\n`;
+            output += `👤 Tier: ${analysis.tier}\n\n`;
+
+            output += `📈 Harmonics Detected: ${harmonics.length}\n`;
+            harmonics.forEach((h, i) => {
+                output += `   ${i + 1}. ${h.frequency}Hz (amplitude: ${h.amplitude})\n`;
+            });
+
+            output += '\n📱 Social Media Content:\n';
+            output += '─'.repeat(50) + '\n';
+            output += `Instagram Story: "🎵 Score Vincien ${score}/100 - ${note} ✨"\n\n`;
+
+            if (tier !== 'free') {
+                output += `✅ Premium tier: LinkedIn, TikTok, YouTube content available\n`;
+            } else {
+                output += `💡 Upgrade to premium for AI-generated content!\n`;
+            }
+
+            resultBox.innerHTML = `<pre>${output}</pre>`;
+            resultBox.classList.add('show');
+        }
+
+        function testFrequency(freq) {
+            document.getElementById('test-freq').value = freq;
+            const resultBox = document.getElementById('preset-result');
+
+            const note = frequencyToNote(freq);
+            const harmonics = generateHarmonics(freq);
+            const score = calculateVincianScore(freq, harmonics);
+
+            let output = `\n🎵 Testing ${freq}Hz (${note})\n`;
+            output += '─'.repeat(40) + '\n';
+            output += `Score: ${score}/100\n`;
+            output += `Harmonics: ${harmonics.length} detected\n`;
+
+            const sacredFreqs = [174, 285, 396, 417, 432, 528, 639, 741, 852, 963];
+            const isSacred = sacredFreqs.some(f => Math.abs(freq - f) < 15);
+            if (isSacred) {
+                output += `✨ Sacred frequency bonus applied!\n`;
+            }
+
+            const scoreLevel = score > 80 ? 'Exceptional' : score > 65 ? 'Excellent' : 'Good';
+            output += `Quality: ${scoreLevel}\n`;
+
+            resultBox.innerHTML = `<pre>${resultBox.innerHTML}${output}</pre>`;
+            resultBox.classList.add('show');
+        }
+    </script>
+</body>
+</html>

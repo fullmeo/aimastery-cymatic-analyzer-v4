@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Réussi - AIMastery V4</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            max-width: 600px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 60px 40px;
+            border-radius: 30px;
+            border: 2px solid #4ade80;
+            box-shadow: 0 20px 60px rgba(74, 222, 128, 0.2);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #4ade80;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .info-box {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            opacity: 0.9;
+        }
+
+        .info-box li::before {
+            content: " ";
+            color: #4ade80;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #333;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255,215,0,0.3);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: #4ade80;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border: 2px solid #4ade80;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .secondary-button:hover {
+            background: rgba(74, 222, 128, 0.1);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .success-container {
+                padding: 40px 25px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon"><‰</div>
+        <h1>Paiement Réussi !</h1>
+        <p>
+            Félicitations ! Votre abonnement <strong>AIMastery Social Media Pack</strong> est maintenant actif.
+        </p>
+
+        <div class="info-box">
+            <h3>=€ Votre accès premium inclut :</h3>
+            <ul>
+                <li>50 analyses cymatiques par mois</li>
+                <li>Contenu social média pour Instagram, LinkedIn, TikTok & YouTube</li>
+                <li>Templates HD sans watermark</li>
+                <li>Analytics avancées</li>
+                <li>Support prioritaire</li>
+            </ul>
+        </div>
+
+        <p style="opacity: 0.7; font-size: 1rem;">
+            Un email de confirmation a été envoyé à votre adresse.<br>
+            Session ID: <span id="session-id" style="color: #4ade80; font-family: monospace;">Chargement...</span>
+        </p>
+
+        <div style="margin-top: 30px;">
+            <a href="/" class="cta-button">
+                <à Retour à l'accueil
+            </a>
+            <br>
+            <a href="mailto:serignetrumpet@gmail.com" class="secondary-button">
+                =¬ Contacter le support
+            </a>
+        </div>
+
+        <p style="margin-top: 40px; font-size: 0.9rem; opacity: 0.6;">
+            Vous pouvez gérer votre abonnement à tout moment depuis votre compte Stripe
+        </p>
+    </div>
+
+    <script>
+        // Extract session ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+
+        if (sessionId) {
+            document.getElementById('session-id').textContent = sessionId.substring(0, 20) + '...';
+        } else {
+            document.getElementById('session-id').textContent = 'Non disponible';
+        }
+
+        // Confetti effect (simple version)
+        function createConfetti() {
+            const colors = ['#ffd700', '#ff6b35', '#4ade80', '#4ECDC4'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.opacity = Math.random();
+                confetti.style.borderRadius = '50%';
+                confetti.style.animation = `fall ${2 + Math.random() * 3}s linear`;
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Trigger confetti on load
+        window.addEventListener('load', createConfetti);
+    </script>
+</body>
+</html>

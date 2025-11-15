@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Annulé - AIMastery V4</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .cancel-container {
+            max-width: 600px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 60px 40px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 107, 53, 0.5);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.1);
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .cancel-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff6b35;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .info-box {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-box p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #333;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255,215,0,0.3);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: #4ECDC4;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border: 2px solid #4ECDC4;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .secondary-button:hover {
+            background: rgba(78, 205, 196, 0.1);
+            transform: scale(1.05);
+        }
+
+        .reasons-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .reasons-list li {
+            padding: 10px 0;
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .reasons-list li::before {
+            content: "=¡ ";
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .cancel-container {
+                padding: 40px 25px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cancel-container">
+        <div class="cancel-icon">></div>
+        <h1>Paiement Annulé</h1>
+        <p>
+            Vous avez annulé le processus de paiement. Aucun montant n'a été débité.
+        </p>
+
+        <div class="info-box">
+            <h3>=¡ Vous hésitez encore ?</h3>
+            <p style="margin-bottom: 20px;">
+                Voici ce que vous manquez avec l'offre Social Media Pack :
+            </p>
+            <ul class="reasons-list">
+                <li>50 analyses cymatiques professionnelles par mois</li>
+                <li>Contenu viral optimisé pour 4 plateformes sociales</li>
+                <li>Templates HD sans watermark</li>
+                <li>Support prioritaire et analytics avancées</li>
+                <li>7 jours d'essai gratuit - aucun engagement</li>
+            </ul>
+        </div>
+
+        <p style="font-size: 1rem; opacity: 0.7;">
+            Des questions ? Notre équipe est là pour vous aider !
+        </p>
+
+        <div style="margin-top: 30px;">
+            <a href="/#pricing" class="cta-button">
+                = Réessayer
+            </a>
+            <br>
+            <a href="/" class="secondary-button">
+                <à Retour à l'accueil
+            </a>
+            <a href="mailto:serignetrumpet@gmail.com" class="secondary-button">
+                =¬ Contactez-nous
+            </a>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: rgba(255,215,0,0.1); border-radius: 15px; border: 1px solid rgba(255,215,0,0.3);">
+            <p style="font-size: 0.95rem; margin: 0;">
+                <strong>< Offre spéciale :</strong> Les 100 premiers utilisateurs bénéficient d'un tarif réduit à vie !
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Track cancellation (for analytics)
+        console.log('Payment cancelled at:', new Date().toISOString());
+
+        // Add smooth scroll for pricing link
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('a[href^="/#"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href.includes('#')) {
+                        e.preventDefault();
+                        window.location.href = href;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

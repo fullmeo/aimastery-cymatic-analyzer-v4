@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMastery V4 - Analyse Cymatique Révolutionnaire</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            color: #333;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .features {
+            padding: 100px 0;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,215,0,0.5);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .pricing {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .pricing-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 40px auto;
+            max-width: 400px;
+            border: 2px solid #ffd700;
+            position: relative;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 20px 0;
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ff6b35, #ffd700);
+            color: #333;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .demo-section {
+            padding: 100px 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .demo-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .test-button {
+            background: linear-gradient(45deg, #4ECDC4, #45B7D1);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .test-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            text-align: left;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .container { padding: 0 15px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><µ AIMastery V4</h1>
+                <p>L'analyse cymatique révolutionnaire qui transforme votre audio en contenus viraux</p>
+                <a href="#demo" class="cta-button">
+                    =€ Essayer la démo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;"><¯ Testez l'Analyse</h2>
+            <p style="text-align: center; font-size: 1.2rem; opacity: 0.9; margin-bottom: 40px;">
+                Lancez une analyse de démonstration pour voir la magie opérer
+            </p>
+
+            <div class="demo-box">
+                <h3 style="color: #ffd700; margin-bottom: 15px;">Analyse Cymatique en Direct</h3>
+                <p style="opacity: 0.8; margin-bottom: 20px;">
+                    Cliquez pour analyser un échantillon audio et voir les résultats instantanément
+                </p>
+                <button class="test-button" onclick="runDemo()">
+                    ¶ Lancer l'Analyse
+                </button>
+
+                <div id="result" class="result-box">
+                    <h4 style="color: #ffd700; margin-bottom: 15px;">=Ê Résultats d'Analyse</h4>
+                    <div id="result-content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Fonctionnalités Révolutionnaires</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><µ</div>
+                    <h3>Analyse Vincienne</h3>
+                    <p>Algorithmes inspirés de Léonard de Vinci pour décrypter les harmoniques cachées de votre musique</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">=ñ</div>
+                    <h3>Social Media Pack</h3>
+                    <p>Contenus optimisés automatiquement pour Instagram, LinkedIn, TikTok et YouTube</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">¡</div>
+                    <h3>Génération Instantanée</h3>
+                    <p>De l'analyse audio au contenu viral en moins de 30 secondes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Offre de Lancement</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 40px;">Seulement pour les 100 premiers utilisateurs</p>
+
+            <div class="pricing-card">
+                <div class="badge">=% LANCEMENT SPÉCIAL</div>
+                <h3>Social Media Pack</h3>
+                <div class="price">9¬<span style="font-size: 1rem; opacity: 0.7;">/mois</span></div>
+                <ul style="text-align: left; margin: 30px 0; list-style: none;">
+                    <li>( 50 Social Packs / mois</li>
+                    <li><¨ Templates HD premium</li>
+                    <li>=Ê Analytics avancées</li>
+                    <li>¡ Support prioritaire</li>
+                    <li>< 7 jours d'essai gratuit</li>
+                </ul>
+                <button class="cta-button" onclick="startCheckout()">
+                    Commencer l'essai gratuit
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px 20px; background: rgba(0,0,0,0.3);">
+        <p style="opacity: 0.7;">Made with d by Serigne Diagne | <a href="https://scorescout.eu" style="color: #ffd700;">scorescout.eu</a></p>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        async function runDemo() {
+            const resultBox = document.getElementById('result');
+            const resultContent = document.getElementById('result-content');
+
+            resultContent.innerHTML = '<p style="text-align: center;">ó Analyse en cours...</p>';
+            resultBox.classList.add('show');
+
+            try {
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        audioData: 'demo_sample_' + Date.now(),
+                        userId: 'demo_user',
+                        tier: 'free'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    resultContent.innerHTML = `
+                        <p><strong><¼ Note Fondamentale:</strong> ${data.analysis.musicalNote}</p>
+                        <p><strong>=Ê Fréquence:</strong> ${data.analysis.fundamentalFrequency}Hz</p>
+                        <p><strong>( Score Vincien:</strong> ${data.analysis.vincianScore}/100</p>
+                        <p><strong><
+ Pattern Cymatique:</strong> ${data.analysis.cymaticPattern.type}</p>
+                        <hr style="margin: 15px 0; border-color: rgba(255,255,255,0.2);">
+                        <p><strong>=ñ Instagram Story:</strong></p>
+                        <p style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-style: italic;">
+                            "${data.content.instagram.story}"
+                        </p>
+                        <p style="margin-top: 15px; opacity: 0.7; font-size: 0.9rem;">
+                            =Ž Abonnez-vous pour débloquer LinkedIn, TikTok, YouTube et plus encore !
+                        </p>
+                    `;
+                } else {
+                    resultContent.innerHTML = '<p style="color: #ff6b6b;">L Erreur lors de l\'analyse</p>';
+                }
+
+            } catch (error) {
+                console.error('Demo error:', error);
+                resultContent.innerHTML = '<p style="color: #ff6b6b;">L Erreur de connexion</p>';
+            }
+        }
+
+        async function startCheckout() {
+            alert('=§ Intégration Stripe en cours de configuration. Revenez bientôt !');
+
+            // TODO: Implémenter la création de session Stripe
+            /*
+            try {
+                const response = await fetch('/api/create-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        priceId: 'price_social_pack_monthly',
+                        userId: 'user_' + Date.now()
+                    })
+                });
+
+                const { url } = await response.json();
+                window.location.href = url;
+
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Erreur lors du paiement. Veuillez réessayer.');
+            }
+            */
+        }
+    </script>
+</body>
+</html>
