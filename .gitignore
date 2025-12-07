@@ -1,2 +1,27 @@
+# Dependencies
+node_modules/
 
-.vercel
+# Environment
+.env
+.env.local
+
+# Build
+/build
+/dist
+
+# Logs
+*.log
+
+# Testing
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Temp
+*.tmp
